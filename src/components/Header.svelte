@@ -5,8 +5,7 @@
       <div class="container px-6 py-16 mx-auto text-center h-screen flex justify-center items-center">
           <div class="max-w-2xl mx-auto leading-royal">
               <h1 class="text-xl font-baskerville italic font-black text-gray-800 capitalize md:text-5xl">{story.title}</h1>
+              <h3 class="text-xl py-4 uppercase  font-semibold">{story.subtitle}</h3>
           </div>
-  
-         
       </div>
   </section>
