@@ -1,7 +1,6 @@
 module.exports = [
   {
-    id: "1yAxc5nIrCe_KkVsDgr34puXx-HgzN0g6wD2eLyfdaYA",
-    gid: "0",
-    filepath: "src/data/stories.csv"
+    id: "1dX4ok2OZr7fHJj93i5JC0aA2N7qvJNTiSl1luFmspS8",
+    filepath: "src/data/story.json"
   },
 ];

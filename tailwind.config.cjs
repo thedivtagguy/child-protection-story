@@ -7,6 +7,9 @@ module.exports = {
         divpurple: "#623cea",
         divorange: "#f85e00"
         // ...
+      },
+      fontFamily: {
+        'baskerville': ['"Libre Baskerville"', 'serif'],
       }
     }
   },
