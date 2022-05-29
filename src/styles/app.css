@@ -31,3 +31,6 @@
   --color-highlight: var(--color-yellow);
 }
 
+p {
+  margin-bottom: 32px;
+}
