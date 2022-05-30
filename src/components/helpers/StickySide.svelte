@@ -4,6 +4,14 @@
 	import * as d3 from "d3";
 	import { onMount } from "svelte";
 	import story from "$data/story.json";
+	import svg from "../assets/AspectsSVG"
+	let color = "red";
+	// Add new key in story.aspects objects called SVG
+	story.aspects.forEach(aspect => {
+		// aspect.SVG is svg.code where svg.name is equal to aspect.name
+		aspect.SVG = svg.find(svg => svg.name === aspect.aspect).code;
+	});
+	console.log(story.aspects);
 
 	$: active = false;
 	onMount(() => {
@@ -13,6 +21,7 @@ var main = d3.select("main");
 		var figure = scrolly.select("figure");
 		var article = scrolly.select("article");
 		var step = article.selectAll(".step");
+		var svgIcon = article.selectAll(".svg-icon");
 
 		// initialize the scrollama
 		var scroller = scrollama();
@@ -20,10 +29,10 @@ var main = d3.select("main");
 		// generic window resize listener event
 		function handleResize() {
 			// 1. update height of step elements
-			var stepH = Math.floor(window.innerHeight * 0.75);
+			var stepH = Math.floor(window.innerHeight * 0.55);
 			step.style("height", stepH + "px");
 
-			var figureHeight = window.innerHeight / 2;
+			var figureHeight = window.innerHeight / 2.2;
 			var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
 			figure
@@ -43,6 +52,11 @@ var main = d3.select("main");
 			step.classed("is-active", function(d, i) {
 				return i === response.index;
 			});
+
+			svgIcon.classed("is-active", function(d, i) {
+				return i === response.index;
+			});
+
 
 			// update graphic based on step
 			figure.select("p").text(
@@ -69,7 +83,7 @@ var main = d3.select("main");
 				.setup({
 					step: "#scrolly article .step",
 					offset: 0.33,
-					debug: true
+					debug: false
 				})
 				.onStepEnter(handleStepEnter);
 		}
@@ -84,10 +98,16 @@ var main = d3.select("main");
 <section id="scrolly">
 	<article>
 		{#each story.aspects as text, i}
-			<div class="step {active === true ? 'is-active' : ''}" data-step={i}>
-				<p>{text.aspect}</p>
+			<div class="step flex flex-col justify-center items-center {active === true ? 'is-active' : ''}" data-step={i}>
+				<!-- Add SVG. Path is in text.SVG -->
+				<div>
+					<svg class="svg-icon {active === true ? 'is-active' : ''}" viewBox="-140 -100 400 250" width="300" xmlns="http://www.w3.org/2000/svg"><path d={text.SVG}/></svg>
+				</div>
+				<div>
+					<p>{text.aspect}</p>
+				</div>
 			</div>
-		{/each}
+			{/each}
 	</article>
 
 	<figure>
@@ -102,7 +122,6 @@ var main = d3.select("main");
 			display: -webkit-box;
 			display: -ms-flexbox;
 			display: flex;
-			background-color: #f3f3f3;
 			padding: 1rem;
 		}
 
@@ -126,8 +145,10 @@ var main = d3.select("main");
 			-webkit-transform: translate3d(0, 0, 0);
 			-moz-transform: translate3d(0, 0, 0);
 			transform: translate3d(0, 0, 0);
-			background-color: #8a8a8a;
+			background-color: #fff;
 			z-index: 0;
+			border: #3d3d3d 3px dashed;
+
 		}
 
 		figure p {
@@ -141,14 +162,15 @@ var main = d3.select("main");
 			transform: translate(-50%, -50%);
 			font-size: 1.2rem;
 			font-weight: 500;
-			color: #fff;
+			color: #3d3d3d;
 			line-height: 1.2em;
+			width: 600px;
 		}
 
 		.step {
 			margin: 0 auto 2rem auto;
-			background-color: #3b3b3b;
-			color: #fff;
+			background-color: #fafafa;
+			color: rgb(192, 192, 192);
 		}
 
 		.step:last-child {
@@ -156,7 +178,8 @@ var main = d3.select("main");
 		}
 
 		.step.is-active {
-			background-color: goldenrod;
+			background-color: rgb(234, 234, 234);
+
 			color: #3b3b3b;
 		}
 
@@ -172,5 +195,14 @@ var main = d3.select("main");
 			line-height: 0.9;
 
 		}
+
+		.svg-icon {
+			width: 100%;
+			height: 100%;
+			fill: #adadad;
+		}
         
+		.svg-icon.is-active {
+			fill: #e31d1d;
+		}
     </style>

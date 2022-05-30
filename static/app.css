@@ -420,6 +420,9 @@ p {
 .left-0 {
   left: 0px;
 }
+.m-auto {
+  margin: auto;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -490,6 +493,11 @@ p {
 }
 .resize {
   resize: both;
+}
+.flex-row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
 }
 .flex-col {
   -webkit-box-orient: vertical;
