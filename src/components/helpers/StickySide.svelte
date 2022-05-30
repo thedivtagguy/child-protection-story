@@ -1,10 +1,14 @@
+
 <script>
     import scrollama from "scrollama"; 
 	import * as d3 from "d3";
 	import { onMount } from "svelte";
+	import story from "$data/story.json";
+
+	$: active = false;
 	onMount(() => {
-	// using d3 for convenience
-	var main = d3.select("main");
+// using d3 for convenience
+var main = d3.select("main");
 		var scrolly = main.select("#scrolly");
 		var figure = scrolly.select("figure");
 		var article = scrolly.select("article");
@@ -12,8 +16,7 @@
 
 		// initialize the scrollama
 		var scroller = scrollama();
-	
-			
+
 		// generic window resize listener event
 		function handleResize() {
 			// 1. update height of step elements
@@ -36,13 +39,15 @@
 			console.log(response);
 			// response = { element, direction, index }
 
-			// add color to current step only
-			step.classed("is-active", function (d, i) {
+			// add active to the current step only
+			step.classed("is-active", function(d, i) {
 				return i === response.index;
 			});
 
 			// update graphic based on step
-			figure.select("p").text(response.index + 1);
+			figure.select("p").text(
+				story.aspects[response.index].text
+			);
 		}
 
 		function setupStickyfill() {
@@ -64,7 +69,7 @@
 				.setup({
 					step: "#scrolly article .step",
 					offset: 0.33,
-					debug: false
+					debug: true
 				})
 				.onStepEnter(handleStepEnter);
 		}
@@ -74,84 +79,98 @@
 		});
 </script>
 
-<div id="scrolly">
+
+
+<section id="scrolly">
 	<article>
-		<slot name='steps' />
+		{#each story.aspects as text, i}
+			<div class="step {active === true ? 'is-active' : ''}" data-step={i}>
+				<p>{text.aspect}</p>
+			</div>
+		{/each}
 	</article>
 
 	<figure>
-		<slot name='figure'/>
+		<p></p>
 	</figure>
-</div>
+</section>
+
 
 <style>
     #scrolly {
-                position: relative;
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                background-color: #f3f3f3;
-                padding: 1rem;
-            }
-    
-            #scrolly>* {
-                -webkit-box-flex: 1;
-                -ms-flex: 1;
-                flex: 1;
-            }
-    
-            article {
-                position: relative;
-                padding: 0 1rem;
-                max-width: 20rem;
-            }
-    
-            figure {
-                position: -webkit-sticky;
-                position: sticky;
-                width: 100%;
-                margin: 0;
-                -webkit-transform: translate3d(0, 0, 0);
-                -moz-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-                background-color: #8a8a8a;
-                z-index: 0;
-            }
-    
-            figure p {
-                text-align: center;
-                padding: 1rem;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                -moz-transform: translate(-50%, -50%);
-                -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                font-size: 8rem;
-                font-weight: 900;
-                color: #fff;
-            }
-    
-            .step {
-                margin: 0 auto 2rem auto;
-                background-color: #3b3b3b;
-                color: #fff;
-            }
-    
-            .step:last-child {
-                margin-bottom: 0;
-            }
-    
-            .step.is-active {
-                background-color: goldenrod;
-                color: #3b3b3b;
-            }
-    
-            .step p {
-                text-align: center;
-                padding: 1rem;
-                font-size: 1.5rem;
-            }
-     
+			position: relative;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			background-color: #f3f3f3;
+			padding: 1rem;
+		}
+
+		#scrolly>* {
+			-webkit-box-flex: 1;
+			-ms-flex: 1;
+			flex: 1;
+		}
+
+		article {
+			position: relative;
+			padding: 0 1rem;
+			max-width: 25rem;
+		}
+
+		figure {
+			position: -webkit-sticky;
+			position: sticky;
+			width: 100%;
+			margin: 0;
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			background-color: #8a8a8a;
+			z-index: 0;
+		}
+
+		figure p {
+			text-align: left;
+			padding: 1rem;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-moz-transform: translate(-50%, -50%);
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			font-size: 1.2rem;
+			font-weight: 500;
+			color: #fff;
+			line-height: 1.2em;
+		}
+
+		.step {
+			margin: 0 auto 2rem auto;
+			background-color: #3b3b3b;
+			color: #fff;
+		}
+
+		.step:last-child {
+			margin-bottom: 0;
+		}
+
+		.step.is-active {
+			background-color: goldenrod;
+			color: #3b3b3b;
+		}
+
+		.step p {
+			text-align: center;
+			padding: 1rem;
+			font-size: 3rem;
+			font-family: 'Libre Baskerville', serif;
+			font-style: italic;
+			font-weight: 700;
+			font-variant: small-caps;
+			word-break: break-all;
+			line-height: 0.9;
+
+		}
         
     </style>
