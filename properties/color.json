@@ -22,19 +22,19 @@
       "value": "#ffffff"
     },
     "purple": {
-      "value": "#a239ca"
+      "value": "#351431ff"
     },
-    "blue": {
-      "value": "#4717f6"
+    "taupe": {
+      "value": "#775253ff"
     },
-    "green": {
-      "value": "#34a29e"
+    "sage": {
+      "value": "#bdc696ff"
     },
-    "red": {
-      "value": "#ff533d"
+    "bone": {
+      "value": "#d1d3c4ff"
     },
-    "yellow": {
-      "value": "#e5e338"
+    "platinum": {
+      "value": "#dfe0dcff"
     }
   }
 }

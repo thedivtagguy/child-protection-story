@@ -145,9 +145,9 @@ var main = d3.select("main");
 			-webkit-transform: translate3d(0, 0, 0);
 			-moz-transform: translate3d(0, 0, 0);
 			transform: translate3d(0, 0, 0);
-			background-color: #fff;
+			background-color: var(--color-off-white);
 			z-index: 0;
-			border: #3d3d3d 3px dashed;
+			border: var(--color-taupe) 5px dashed;
 
 		}
 
@@ -169,8 +169,7 @@ var main = d3.select("main");
 
 		.step {
 			margin: 0 auto 2rem auto;
-			background-color: #fafafa;
-			color: rgb(192, 192, 192);
+			color: var(--color-gray-light);
 		}
 
 		.step:last-child {
@@ -178,7 +177,7 @@ var main = d3.select("main");
 		}
 
 		.step.is-active {
-			background-color: rgb(234, 234, 234);
+			background-color: var(--color-purple);
 
 			color: #3b3b3b;
 		}
@@ -193,16 +192,16 @@ var main = d3.select("main");
 			font-variant: small-caps;
 			word-break: break-all;
 			line-height: 0.9;
-
+			color: var(--color-bone);
 		}
 
 		.svg-icon {
 			width: 100%;
 			height: 100%;
-			fill: #adadad;
+			fill: var(--color-gray-light);
 		}
         
 		.svg-icon.is-active {
-			fill: #e31d1d;
+			fill: var(--color-bone);
 		}
     </style>
