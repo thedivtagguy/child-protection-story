@@ -11,7 +11,6 @@
 		// aspect.SVG is svg.code where svg.name is equal to aspect.name
 		aspect.SVG = svg.find(svg => svg.name === aspect.aspect).code;
 	});
-	console.log(story.aspects);
 
 	$: active = false;
 	onMount(() => {
@@ -58,10 +57,17 @@ var main = d3.select("main");
 			});
 
 
-			// update graphic based on step
-			figure.select("p").text(
+			// If index is undefined, then we are on the first step
+			if (response.index === 0) {
+				figure.select("p").text(
+				story.aspects[0].text
+			);
+			} else {
+				figure.select("p").text(
 				story.aspects[response.index].text
 			);
+			}
+			
 		}
 
 		function setupStickyfill() {
@@ -96,6 +102,7 @@ var main = d3.select("main");
 
 
 <section id="scrolly">
+	
 	<article>
 		{#each story.aspects as text, i}
 			<div class="step flex flex-col justify-center items-center {active === true ? 'is-active' : ''}" data-step={i}>
@@ -147,7 +154,7 @@ var main = d3.select("main");
 			transform: translate3d(0, 0, 0);
 			background-color: var(--color-off-white);
 			z-index: 0;
-			border: var(--color-taupe) 5px dashed;
+			border: var(--color-taupe) 3px dashed;
 
 		}
 
@@ -170,6 +177,8 @@ var main = d3.select("main");
 		.step {
 			margin: 0 auto 2rem auto;
 			color: var(--color-gray-light);
+			transition: all 0.2s ease-in-out;
+
 		}
 
 		.step:last-child {
@@ -204,4 +213,7 @@ var main = d3.select("main");
 		.svg-icon.is-active {
 			fill: var(--color-bone);
 		}
+
+		/* Transitions for steps */
+	
     </style>
