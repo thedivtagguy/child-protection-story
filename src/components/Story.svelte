@@ -3,6 +3,7 @@
 import Graph1 from "./StoryComponents/Graph1.svelte";
 import QuestionCard from "./StoryComponents/QuestionCard.svelte";
 import Questions from "./StoryComponents/Questions.svelte";
+import ScatterPlot from "./StoryComponents/ScatterPlot.svelte";
     import StickySide from "./StoryComponents/StickySide.svelte";
 
 	let index;
@@ -26,3 +27,15 @@ import Questions from "./StoryComponents/Questions.svelte";
 <QuestionCard number="1" question={story.q[0][1]}/>
 
 <Graph1 />
+<div class="max-w-6xl px-8 pt-12 mx-auto text-justify lg:w-3/5">
+    <p class="text-base lg:text-xl">
+        {story.child_development.intro}
+          </p>
+          <h2 class="text-5xl font-bold py-8 tracking-tight font-baskerville leading-[60px] text-center">~ <br> Aspects of <br>Child Protection <br>~</h2>
+
+ </div>
+ 
+
+<QuestionCard number="2" question={story.q[0][2]}/>
+
+<ScatterPlot />
